@@ -19,7 +19,6 @@ public class Main {
     private long window;
 
     public void run() {
-        System.out.println("Hello LWJGL " + Version.getVersion() + "!");
 
         init();
         loop();
@@ -105,9 +104,9 @@ public class Main {
             //RENDER HERE
             glBegin(GL_TRIANGLES);
 
-            glVertex2f(0, 1);
-            glVertex2f(-0.5f, -0.5f);
-            glVertex2f(0.5f, -0.5f);
+            glVertex3f(0, 0.5f, 0.5f);
+            glVertex3f(-0.5f, -0.5f, 0);
+            glVertex3f(0.5f, 0.5f, 0);
 
             glEnd();
 
@@ -118,6 +117,14 @@ public class Main {
             glfwPollEvents();
         }
     }
+
+    public double SDF(float x, float y,float z){
+        double result = Math.sqrt((x*x) + (y*y) + (z*z)) - 1;
+
+        return result;
+    }
+
+
 
     public static void main(String[] args) {
         new Main().run();
