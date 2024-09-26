@@ -3,12 +3,13 @@ import org.lwjgl.Version;
 public class Main {
 
     private static WindowManager window;
-    private static EngineManager engine;
+    private static TestGame game;
 
     public static void main(String[] args) {
         System.out.println(Version.getVersion());
         window = new WindowManager(1600, Constants.TITLE, 900, false);
-        engine = new EngineManager();
+        game = new TestGame();
+        EngineManager engine = new EngineManager();
 
         try {
             engine.start();
@@ -23,4 +24,7 @@ public class Main {
         return window;
     }
 
+    public static TestGame getGame() {
+        return game;
+    }
 }
