@@ -1,5 +1,5 @@
 import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL30;
 
 public class TestGame implements ILogic{
 
@@ -15,8 +15,8 @@ public class TestGame implements ILogic{
     private Model model;
 
     public TestGame() {
-        renderer = new RenderManager();
         window = Main.getWindow();
+        renderer = new RenderManager();
         loader = new ObjectLoader();
     }
 
@@ -27,10 +27,15 @@ public class TestGame implements ILogic{
         float[] vertices = {
                 -0.5f, 0.5f, 0f,
                 -0.5f, -0.5f, 0f,
-                0.5f, -0.5f, 0f
+                0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f,
+                0.5f, 0.5f, 0f,
+                -0.5f, 0.5f, 0f
         };
 
         model = loader.loadModel(vertices);
+        System.out.println("STILL WORKING");
+
     }
 
     @Override
@@ -45,7 +50,7 @@ public class TestGame implements ILogic{
     @Override
     public void render() {
         if (window.isResize()){
-            GL15.glViewport(0, 0, window.getWidth(), window.getHeight());
+            GL30.glViewport(0, 0, window.getWidth(), window.getHeight());
             window.setResize(true);
 
         }

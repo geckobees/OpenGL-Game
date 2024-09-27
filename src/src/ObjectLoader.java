@@ -1,6 +1,7 @@
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL30C;
 
 import javax.xml.crypto.Data;
 import java.nio.FloatBuffer;
@@ -16,6 +17,7 @@ public class ObjectLoader {
         storeDataInAttribList(0, 3, vertices);
         unbind();
         return new Model(id, vertices.length / 3);
+
     }
 
     private int createVAO(){
@@ -25,13 +27,13 @@ public class ObjectLoader {
         return id;
     }
     private void storeDataInAttribList(int attribNo /* attribute number */ , int vertexCount, float[] data) {
-        int vbo = GL15.glGenBuffers();
+        int vbo = GL30.glGenBuffers();
         vbos.add(vbo);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, vbo);
+        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vbo);
         FloatBuffer buffer = Utils.storeDataInFloatBuffer(data);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER, buffer, GL15.GL_STATIC_DRAW);
-        GL20.glVertexAttribPointer(attribNo, vertexCount, GL15.GL_FLOAT, false, 0, 0);
-        GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
+        GL30.glBufferData(GL30.GL_ARRAY_BUFFER, buffer, GL30.GL_STATIC_DRAW);
+        GL30.glVertexAttribPointer(attribNo, vertexCount, GL30.GL_FLOAT, false, 0, 0);
+        GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, 0);
     }
     public void unbind(){
         GL30.glBindVertexArray(0);

@@ -4,8 +4,7 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL30;
 import org.lwjgl.system.MemoryUtil;
 
 import java.awt.*;
@@ -40,12 +39,12 @@ public class WindowManager {
             throw new IllegalStateException("Unable to initialize GLFW");
 
         GLFW.glfwDefaultWindowHints();
-        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL15.GL_FALSE);
-        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL15.GL_TRUE);
+        GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GL30.GL_FALSE);
+        GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, GL30.GL_TRUE);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR, 3);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR, 2);
         GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_PROFILE, GLFW.GLFW_OPENGL_CORE_PROFILE);
-        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GL15.GL_TRUE);
+        GLFW.glfwWindowHint(GLFW.GLFW_OPENGL_FORWARD_COMPAT, GL30.GL_TRUE);
 
         boolean maximized = false;
 
@@ -75,7 +74,7 @@ public class WindowManager {
             GLFW.glfwMaximizeWindow(window);
         else {
             GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-            GLFW.glfwSetWindowPos(window, (vidMode.width() - width) / 2, (vidMode.height() - height / 2));
+            //GLFW.glfwSetWindowPos(window, (vidMode.width() - width) / 2, (vidMode.height() - height / 2));
         }
 
         GLFW.glfwMakeContextCurrent(window);
@@ -87,11 +86,11 @@ public class WindowManager {
 
         GL.createCapabilities();
 
-        GL15.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-        GL15.glEnable(GL15.GL_DEPTH_TEST);
-        GL15.glEnable(GL15.GL_STENCIL_TEST);
-        GL15.glEnable(GL15.GL_CULL_FACE);
-        GL15.glCullFace(GL15.GL_BACK);
+        GL30.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+        GL30.glEnable(GL30.GL_DEPTH_TEST);
+        GL30.glEnable(GL30.GL_STENCIL_TEST);
+        GL30.glEnable(GL30.GL_CULL_FACE);
+        GL30.glCullFace(GL30.GL_BACK);
     }
 
     public void update() {
@@ -104,7 +103,7 @@ public class WindowManager {
     }
 
     public void setClearColor(float r, float g, float b, float a){
-        GL15.glClearColor(r, g, b, a);
+        GL30.glClearColor(r, g, b, a);
     }
 
     public boolean isKeyPressed(int keycode){
