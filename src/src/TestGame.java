@@ -9,16 +9,28 @@ public class TestGame implements ILogic{
     private float color = 0.0f;
 
     private final RenderManager renderer;
+    public final ObjectLoader loader;
     private final WindowManager window;
+
+    private Model model;
 
     public TestGame() {
         renderer = new RenderManager();
         window = Main.getWindow();
+        loader = new ObjectLoader();
     }
 
     @Override
     public void init() throws Exception{
         renderer.init();
+
+        float[] vertices = {
+                -0.5f, 0.5f, 0f,
+                -0.5f, -0.5f, 0f,
+                0.5f, -0.5f, 0f
+        };
+
+        model = loader.loadModel(vertices);
     }
 
     @Override
@@ -38,12 +50,13 @@ public class TestGame implements ILogic{
 
         }
         window.setClearColor(color, color, color, 0.0f);
-        renderer.clear();
+        renderer.render(model);
     }
 
     @Override
     public void cleanup() {
         renderer.cleanup();
+        loader.cleanup();
     }
 
     @Override
