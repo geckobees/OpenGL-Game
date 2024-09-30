@@ -8,7 +8,7 @@ public class Model {
         this.vertexCount = vertexCount;
     }
 
-    public int getId() {
+    public int getId()  {
         return id;
     }
 

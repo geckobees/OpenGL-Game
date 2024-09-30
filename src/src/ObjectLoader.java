@@ -5,6 +5,7 @@ import org.lwjgl.opengl.GL30C;
 
 import javax.xml.crypto.Data;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,9 @@ public class ObjectLoader {
     private List<Integer> vaos = new ArrayList<>();// vertex array object
     private List<Integer> vbos = new ArrayList<>();// vertex buffer object
 
-    public Model loadModel(float[] vertices){
+    public Model loadModel(float[] vertices, int[] indices){
         int id = createVAO();
+        storeIndicesBuffer(indices);
         storeDataInAttribList(0, 3, vertices);
         unbind();
         return new Model(id, vertices.length / 3);
@@ -26,6 +28,15 @@ public class ObjectLoader {
         GL30.glBindVertexArray(id);
         return id;
     }
+
+    private void storeIndicesBuffer(int[] indices){
+        int vbo = GL15.glGenBuffers();
+        vbos.add(vbo);
+        GL15.glBindBuffer(GL30.GL_ELEMENT_ARRAY_BUFFER, vbo);
+        IntBuffer buffer = Utils.storeDataInIntBuffer(indices);
+        GL30.glBufferData(GL30.GL_ELEMENT_ARRAY_BUFFER, buffer, GL30.GL_STATIC_DRAW);
+    }
+
     private void storeDataInAttribList(int attribNo /* attribute number */ , int vertexCount, float[] data) {
         int vbo = GL30.glGenBuffers();
         vbos.add(vbo);
